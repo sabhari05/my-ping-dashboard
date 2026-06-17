@@ -84,7 +84,7 @@ function renderData(servers) {
 // Push notification request handler
 document.getElementById('notify-btn').addEventListener('click', () => {
     if (window.OneSignal) {
-        window.OneSignal.showNativePrompt();
+                window.OneSignal.Slidedown.promptPush();
     } else {
         alert("OneSignal is not initialized yet. Ensure you've replaced the App ID in index.html");
     }
