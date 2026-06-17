@@ -2,7 +2,7 @@
 const SUPABASE_URL = 'https://zmkeakeqvzhijheqqykq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_5UMq2_CXbK3Bf3N9RuvOSQ_EU4wQ9k0';
 
-let supabase;
+let db;
 
 // DOM Elements
 const grid = document.getElementById('server-grid');
@@ -14,7 +14,7 @@ const lastUpdatedEl = document.getElementById('last-updated');
 async function init() {
     // Initialize Supabase if keys are provided
     if (SUPABASE_URL !== 'YOUR_SUPABASE_URL') {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         fetchData();
         // Setup polling every 10 seconds (easier than setting up Postgres replication for real-time initially)
         setInterval(fetchData, 10000);
@@ -25,7 +25,7 @@ async function init() {
 
 async function fetchData() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await db
             .from('server_status')
             .select('*')
             .order('name');
